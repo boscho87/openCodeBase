@@ -1,9 +1,10 @@
 <?php
 
-namespace H2gAsApi\Service;
+namespace AbbHMDFlightTracker\Model\Service;
 
 //Todo write doc
-class CURLHandler {
+class CURLHandler
+{
     private $baseUrl;
 
     private $handler;
@@ -14,11 +15,13 @@ class CURLHandler {
 
     private $user;
 
-    public function setBaseURL($baseUrl) {
+    public function setBaseURL($baseUrl)
+    {
         $this->baseUrl = $baseUrl;
     }
 
-    private function initOpt() {
+    private function initOpt()
+    {
         $this->handler = curl_init();
         $opt = array();
         if ($this->user && $this->apiKey) {
@@ -34,32 +37,38 @@ class CURLHandler {
     }
 
 
-    public function setAuth($user, $key) {
+    public function setAuth($user, $key)
+    {
         $this->user = $user;
         $this->apiKey = $key;
     }
 
 
-    public function setRequestUri($uri) {
-        $uri = $this->checkRequestURL($uri);
+    public function setRequestUri($uri)
+    {
+        $uri = $this->fixUrlSlashes($uri);
         $this->requestUri = $uri;
     }
 
-
-    public function checkRequestURL($uri) {
-        $firstRequestUriLetter = substr($uri, 0, 1);
-        $lastBaseUrlLetter = substr($this->baseUrl, -1);
-        if ($lastBaseUrlLetter == "/" && $firstRequestUriLetter == "/") {
-            return substr($uri, 1);
-        } elseif ($lastBaseUrlLetter != "/" && $firstRequestUriLetter != "/") {
-            return "/" . $uri;
-        } else {
-            return $uri;
-        }
+    /**
+     * @return string
+     */
+    public function getRequestUri()
+    {
+        return $this->requestUri;
     }
 
 
-    public function getData() {
+    private function fixUrlSlashes($uri)
+    {
+        $uri = rtrim($uri, "/");
+        $this->baseUrl = rtrim($this->baseUrl, "/");
+        return "/".$uri;
+    }
+
+
+    public function getData()
+    {
         $this->initOpt();
         $data = curl_exec($this->handler);
         curl_close($this->handler);
