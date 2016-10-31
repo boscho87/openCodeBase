@@ -1,0 +1,7 @@
+{# CRAFT TEMPLATE SYNTAX FOR RELATED CATEGORIES ETC#}
+
+{# get only elements for the current measure #}
+{# read measure from url #}
+{% set currentMeasure = craft.request.getFirstSegment() %}
+{% set category = craft.categories.slug(currentMeasure) %}
+{% set entries = craft.entries.section('entries').relatedTo(category).find() %}
