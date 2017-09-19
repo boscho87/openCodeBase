@@ -14,6 +14,6 @@ dest_dir=/httpdocs/test/
 rm -rf $temp_dir
 mkdir $temp_dir
 sshfs scorpions@uhc-scorpions.ch:$dest_dir $temp_dir
-rsync -av --delete $origin_dir $temp_dir
+rsync -azv --delete $origin_dir $temp_dir
 fusermount -u $temp_dir
 rm -rf $temp_dir
