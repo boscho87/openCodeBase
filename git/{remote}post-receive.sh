@@ -14,7 +14,7 @@ do
         fusermount -u $temp_dir
         rm -rf $temp_dir
     else
-        echo "Ref $ref successfully received.  Doing nothing: only the stage branch may be deployed on this se$
+        echo "Ref $ref successfully received.  Doing nothing: only the stage branch may be deployed on this server"
     fi
 done
 
