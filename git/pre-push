@@ -1,4 +1,5 @@
 #!/bin/bash
+#execute some stuff and then ask is you really want to push
 ./ci/codesniffer.sh
 phpunit
 read -p "You're about to push, are you sure you won't break the build? " -n 1 -r < /dev/tty
@@ -9,7 +10,8 @@ then
 fi
 exit 1 # push will not execute
 
-
+--------------------------------
+#!/bin/bash
 # If the following text is found anywhere in the source for HEAD, we will prevent pushing
 dont_push_flag="DONT PUSH ME"
 
