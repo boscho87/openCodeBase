@@ -1,0 +1,36 @@
+stages:
+  - deploy
+  - build
+
+#Build application
+build:
+  stage: build
+  image: php:7.1
+  before_script:
+    - ./ci/docker_install.sh
+    - composer global require "squizlabs/php_codesniffer=*"
+    - composer install
+    - ./ci/codesniffer.sh
+  script:
+    - echo "RUN TESTS"
+    - phpunit
+  except:
+    - master
+
+#Deploy to Production
+deploy_production:
+  stage: deploy
+  image: node:7.9.0
+  environment:
+      name: production
+  before_script:
+    ## SSH STUFF
+    - ./ci/prepare_ssh.sh
+    - ./ci/install_node.sh
+  script:
+    - git remote add master ssh://user@server:/bare_repo_dir
+    - git push master master --force
+    - scp -rp ./web/assets user@server:/dir
+  when: manual
+  only:
+    - master
