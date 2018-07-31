@@ -1,0 +1,10 @@
+#!/bin/bash
+# -before calling any command-
+# do a "normal ssh login" and allow RSA
+# SSHPASS='yourPassword'
+
+# -commands-
+# sshpass --> status
+# sshpass on --> turn on
+# sshpass off --> turn off
+sshpass -e ssh -o StrictHostKeyChecking=no boscho@192.168.0.9 power $1
