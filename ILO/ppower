@@ -7,4 +7,10 @@
 # sshpass --> status
 # sshpass on --> turn on
 # sshpass off --> turn off
-sshpass -e ssh -o StrictHostKeyChecking=no boscho@192.168.0.9 power $1
+
+
+#!/bin/bash
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+sshpass -p '' ssh -o StrictHostKeyChecking=no boscho@192.168.0.9 "power $1"
+
