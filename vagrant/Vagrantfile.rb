@@ -39,13 +39,6 @@ config.vm.provision "shell", inline: <<-SHELL
      mv ./composer.phar  /usr/local/bin/composer
      chmod +x /usr/local/bin/composer
      composer global require hirak/prestissimo
-     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-     export NVM_DIR="$HOME/.nvm"
-     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-     nvm install 9.0.0
-     npm install -g gulp
-     npm install -g gulp-cli
      rm -rf /var/www/
      mkdir -p /var/www/htdocs
      chown -R www-data:www-data /var/www
@@ -67,8 +60,14 @@ config.vm.provision "shell", inline: <<-SHELL
      ## CHANGE THIS
      su www-data
      ssh-keygen
+     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+     export NVM_DIR="$HOME/.nvm"
+     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+     nvm install 9.0.0
+     npm install -g gulp
+     npm install -g gulp-cli
      git config --global user.email "simon.d.mueller@gmail.com"
      git config --global user.name "Simon D. Müller"
-
    SHELL
 end
