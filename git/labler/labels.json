@@ -1,0 +1,12 @@
+[
+	["Todo", "#F0AD4E"],
+	["Doing", "#5CB85C"],
+	["Done", "#69D100"],
+	["Approved", "#69D555"],
+	["Prio:low", "#FFECDB"],
+	["Prio:mid", "#AD4363"],
+	["Prio:high", "#D10069"],
+	["Bug", "#FF0000"],
+	["Task", "#428BCA"],
+	["Rejected", "#F00000"]
+]
