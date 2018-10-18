@@ -1,5 +1,6 @@
 import json
 
+
 import requests
 
 groupUrl = "https://gitlab.com/api/v4/groups/{group}/projects?private_token={token}"
@@ -18,25 +19,31 @@ def main():
         print("group should not be empty")
         return
 
+    group = group.replace("/","%2F")
     url = groupUrl.replace("{group}", group)
+
     url = url.replace("{token}", key)
 
     answer = requests.get(url)
 
     if (answer.status_code != 200):
-        print(answer.json()['message'] + " for group: " + group)
+        if('message' in answer):
+            print(answer.json()['message'] + " for group: " + group)
+        else:
+            print(answer.json())
         return
 
     projects = answer.json()
 
     ids = []
     for count, project in enumerate(projects):
-        name = "%2d %20s: %8d" % (count + 1, project['name'], project['id'])
+        name = "%2d %50s: %8d" % (count + 1, project['name'], project['id'])
         ids.append(project['id'])
         print(name)
 
     if (len(ids) < 1):
         print("No Repository found for group: " + group)
+        return
 
     print("Choose Repository:")
     choosedId = int(input()) - 1
